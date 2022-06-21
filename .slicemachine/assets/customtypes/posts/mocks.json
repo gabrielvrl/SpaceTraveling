@@ -1,0 +1,61 @@
+{
+  "id": "67b74b41-4b00-41ec-b764-ce580af4a2f3",
+  "uid": "est-est-culpa",
+  "type": "posts",
+  "data": {
+    "title": "streamline out-of-the-box solutions",
+    "subtitle": "transition user-centric architectures",
+    "author": "expedite frictionless e-business",
+    "banner": {
+      "dimensions": {
+        "width": 900,
+        "height": 500
+      },
+      "alt": "Placeholder image",
+      "copyright": null,
+      "url": "https://images.unsplash.com/photo-1544731612-de7f96afe55f?w=900&h=500&fit=crop"
+    },
+    "content": [
+      {
+        "heading": "implement world-class technologies",
+        "body": [
+          {
+            "type": "paragraph",
+            "text": "Pariatur culpa culpa do labore minim aliquip et magna. Ad consectetur qui anim eiusmod occaecat nulla esse officia.",
+            "spans": []
+          }
+        ]
+      },
+      {
+        "heading": "target front-end supply-chains",
+        "body": [
+          {
+            "type": "paragraph",
+            "text": "Officia sint excepteur Lorem sint. Incididunt est mollit ea commodo elit occaecat ut veniam consectetur. Nisi duis non voluptate do anim amet.",
+            "spans": []
+          }
+        ]
+      },
+      {
+        "heading": "benchmark dot-com synergies",
+        "body": [
+          {
+            "type": "paragraph",
+            "text": "Dolor est labore eiusmod consequat duis ad dolor quis labore tempor officia mollit nulla irure consectetur. Aute aliquip eu occaecat laborum sit aliquip culpa in ad anim ex in.",
+            "spans": []
+          }
+        ]
+      },
+      {
+        "heading": "unleash dot-com experiences",
+        "body": [
+          {
+            "type": "paragraph",
+            "text": "Tempor incididunt excepteur elit in tempor voluptate proident do. Dolore Lorem labore excepteur ad excepteur do ex eiusmod amet dolore et anim incididunt ipsum.",
+            "spans": []
+          }
+        ]
+      }
+    ]
+  }
+}
