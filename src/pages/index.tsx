@@ -37,16 +37,16 @@ export default function Home(postPagination : HomeProps) {
       <Header />
       
 
-      <main className={styles.container}>
+      <main className={commonStyles.container}>
         <div className={styles.posts}>
           {
             postPagination.results.map((post) => {
               return (
-                <Link key={post.id} href={`/posts/${post.uid}`}>
+                <Link key={post.id} href={`/post/${post.uid}`}>
                   <a>
                     <h3>{post.data.title}</h3>
                     <p>{post.data.subtitle}</p>
-                    <div className={styles.authorAndPublicationDate}>
+                    <div className={commonStyles.postInfo}>
                       <time> <img src="/images/calendar.svg" alt="calendar" />
                         {
                           format(new Date(post.first_publication_date), 'd MMM YYY')

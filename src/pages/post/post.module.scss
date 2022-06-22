@@ -1,1 +1,16 @@
-// TODO
+.post {
+  max-width: 720px;
+  margin: 5rem auto 0;
+
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 58px;
+    letter-spacing: -0.5px;
+    color: var(--heading);
+  }
+}
