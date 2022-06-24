@@ -52,15 +52,13 @@ export default function Post({ post }: PostProps) {
             <h6> <img src="/images/clock.svg" alt="user" /> 4 min</h6>
           </div>
 
-          {
+{/*           {
             Object.entries( post.data.content).map(content => {
               return(
-                {/* <h2>{content[1]}</h2> */}
+                <h2>{content[1]}</h2> 
               )
-            })
-            
-           
-          }
+            }) 
+          } */}
 
         </article>
       </main>
