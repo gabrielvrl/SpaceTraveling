@@ -1,14 +1,14 @@
-import router from 'next/router';
+import Link from 'next/link';
 import styles from './header.module.scss';
 
 export default function Header() {
-  const redirectToHome = () => {
-    router.push('/')
-  }
-
   return(
-    <div onClick={redirectToHome} className={styles.header}>
-      <img src="/images/logo.svg" alt="logo" />
-    </div>
+    <header className={styles.header}>
+      <Link href="/">
+        <a>
+          <img src="/images/logo.svg" alt="logo" />
+        </a>
+      </Link>
+    </header>
   )
 }
