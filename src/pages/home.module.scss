@@ -18,4 +18,25 @@
     color: var(--body);
     margin-top: 0.25rem;
   }
+
+  .morePosts {
+    cursor: pointer;
+    margin-top: 2.5rem;
+
+    h4 {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 22px;
+      /* identical to box height */
+
+      text-align: justify;
+
+      /* Highlight */
+
+      color: var(--highlight);
+
+    }
+  }
 }

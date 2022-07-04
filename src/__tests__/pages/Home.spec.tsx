@@ -173,7 +173,7 @@ describe('Home', () => {
     );
   });
 
-  it('should be able to load more posts if available', async () => {
+  it.only('should be able to load more posts if available', async () => {
     const postsPagination = { ...mockedGetByTypeReturn };
     postsPagination.results = [
       {

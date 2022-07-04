@@ -1,9 +1,13 @@
 import format from 'date-fns/format';
+import ptBR from 'date-fns/locale/pt-BR';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
+import { useState } from 'react';
 import Header from '../components/Header';
 
 import { getPrismicClient } from '../services/prismic';
+
+import { api } from '../services/api';
 
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
@@ -20,16 +24,29 @@ interface Post {
 }
 
 interface PostPagination {
-  map(arg0: (post: Post) => void): any;
   next_page: string;
   results: Post[];
 }
 
 interface HomeProps {
-  results: PostPagination;
+  postsPagination: PostPagination;
+  preview: boolean;
 }
 
-export default function Home(postPagination : HomeProps) {
+export default function Home({ postsPagination, preview } : HomeProps): JSX.Element {
+  const [posts, setPosts] = useState<PostPagination>(
+    postsPagination,
+  )
+  
+  const handleLoadMorePosts = async () => {
+    const response = await api.get(postsPagination.next_page)
+    
+    setPosts({
+      next_page: response.data.next_page,
+      results: [...posts.results, ...response.data.results]
+    })
+  }
+
   return(
     <>
       <title>Posts | SpaceTravelling</title>
@@ -40,7 +57,7 @@ export default function Home(postPagination : HomeProps) {
       <main className={commonStyles.container}>
         <div className={styles.posts}>
           {
-            postPagination.results.map((post) => {
+            posts.results.map((post) => {
               return (
                 <Link key={post.id} href={`/post/${post.uid}`}>
                   <a>
@@ -49,7 +66,13 @@ export default function Home(postPagination : HomeProps) {
                     <div className={commonStyles.postInfo}>
                       <time> <img src="/images/calendar.svg" alt="calendar" />
                         {
-                          format(new Date(post.first_publication_date), 'd MMM YYY')
+                          format(
+                            new Date(post.first_publication_date), 
+                            'd MMM YYY',
+                            {
+                              locale: ptBR
+                            }
+                          )
                         }
                       </time>
                       <h6> <img src="/images/user.svg" alt="user" /> {post.data.author}</h6>
@@ -59,17 +82,39 @@ export default function Home(postPagination : HomeProps) {
               )
             })
           }
+
+          {
+            posts.next_page &&
+              <div className={styles.morePosts} onClick={handleLoadMorePosts}>
+                <h4>Carregar mais posts</h4>
+              </div>
+          }
+
         </div>
       </main>
     </>
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const prismic = getPrismicClient({});
-  const postsResponse = await prismic.getByType("posts");
+export const getStaticProps: GetStaticProps = async ({ preview = false, previewData }) => {
+  const prismic = getPrismicClient({ previewData });
+  const postsResponse = await prismic.getByType('posts', {
+    pageSize: 2,
+    ref: previewData?.ref ?? null
+  });
+
+  console.log(postsResponse)
+
+  const postsPagination = {
+    next_page: postsResponse.next_page,
+    results: postsResponse.results
+  }
 
   return {
-    props: postsResponse
+    props: {
+      postsPagination,
+      preview,
+    },
+    revalidate: 60 * 5, // 5 minutes
   }
 };

@@ -30,7 +30,6 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps) {
-  console.log(post)
   return(
     <>
       <title>{post.data.title} | SpaceTraveling</title>
@@ -66,8 +65,8 @@ export default function Post({ post }: PostProps) {
   )
 }
 
-export const getStaticPaths = async () => {
-  const prismic = getPrismicClient({});
+export const getStaticPaths = async ({ previewData }) => {
+  const prismic = getPrismicClient({ previewData });
   const posts = await prismic.getByType("posts", {});
 
   return {
@@ -77,14 +76,9 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const { slug } = params
-  const prismic = getPrismicClient({});
+  const { slug, previewData } = params;
+  const prismic = getPrismicClient({ previewData });
   const response = await prismic.getByUID("posts", String(slug));
-  
-  console.log(response.data.content[0])
-  /* 
-  console.log(response.data.content[0].body)
-  console.log(response.data.content[1].body) */
 
   const post = {
     first_publication_date: response.first_publication_date,
