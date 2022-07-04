@@ -37,12 +37,14 @@ export default function Home({postsPagination}: HomeProps): JSX.Element {
   )
   
   const handleLoadMorePosts = async () => {
-    const response = await api.get(postsPagination.next_page)
-    
-    setPosts({
-      next_page: response.data.next_page,
-      results: [...posts.results, ...response.data.results]
-    })
+    await fetch(postsPagination.next_page)
+      .then(data=>{return data.json()})
+      .then(response=>{
+        setPosts({
+          next_page: response.next_page,
+          results: [...posts.results, ...response.results]
+        })
+      })
   }
 
   return(
