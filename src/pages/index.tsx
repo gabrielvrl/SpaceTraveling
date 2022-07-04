@@ -13,7 +13,6 @@ import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
 
 interface Post {
-  id: string;
   uid?: string;
   first_publication_date: string | null;
   data: {
@@ -30,10 +29,9 @@ interface PostPagination {
 
 interface HomeProps {
   postsPagination: PostPagination;
-  preview: boolean;
 }
 
-export default function Home({ postsPagination, preview } : HomeProps): JSX.Element {
+export default function Home({postsPagination}: HomeProps): JSX.Element {
   const [posts, setPosts] = useState<PostPagination>(
     postsPagination,
   )
@@ -59,7 +57,7 @@ export default function Home({ postsPagination, preview } : HomeProps): JSX.Elem
           {
             posts.results.map((post) => {
               return (
-                <Link key={post.id} href={`/post/${post.uid}`}>
+                <Link key={post.uid} href={`/post/${post.uid}`}>
                   <a>
                     <h3>{post.data.title}</h3>
                     <p>{post.data.subtitle}</p>
