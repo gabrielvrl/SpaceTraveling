@@ -65,41 +65,32 @@ export default function Post({ post }: PostProps) {
   )
 }
 
-export const getStaticPaths = async ({ previewData }) => {
-  const prismic = getPrismicClient({ previewData });
+export const getStaticPaths: GetStaticPaths = async () => {
+  const prismic = getPrismicClient({});
   const posts = await prismic.getByType("posts", {});
 
+  const paths = posts.results.map(post => {
+    return {
+      params: {
+        slug: post.uid
+      }
+    }
+  })
+
   return {
-    paths: [],
+    paths,
     fallback: 'blocking'
   }
 };
 
-export const getStaticProps = async ({ params }) => {
-  const { slug, previewData } = params;
-  const prismic = getPrismicClient({ previewData });
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { slug } = params;
+  const prismic = getPrismicClient({});
   const response = await prismic.getByUID("posts", String(slug));
-
-  const post = {
-    first_publication_date: response.first_publication_date,
-    data: {
-      title: response.data.title,
-      banner: {
-        url: response.data.banner.url,
-      },
-      author: response.data.author,
-      content: {
-        heading: response.data.content.map(content => content.heading),
-        body: {
-          text: response.data.content.map(content => content.body.map(body => body.text)),
-        },
-      },
-    },
-  };
 
   return {
     props: {
-      post,
+      response,
     },
     revalidate: 60 * 30, // 30 minutes
   }

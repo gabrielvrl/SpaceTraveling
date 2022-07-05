@@ -242,7 +242,7 @@ describe('Post', () => {
     expect(response.paths).toEqual(getStaticPathsReturn);
   });
 
-  it('should be able to return prismic post document using getStaticProps', async () => {
+  it.only('should be able to return prismic post document using getStaticProps', async () => {
     const routeParam = parse('como-utilizar-hooks');
 
     const postReturn = mockedGetByUIDReturn;

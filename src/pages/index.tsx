@@ -103,8 +103,6 @@ export const getStaticProps: GetStaticProps = async ({ preview = false, previewD
     ref: previewData?.ref ?? null
   });
 
-  console.log(postsResponse)
-
   const postsPagination = {
     next_page: postsResponse.next_page,
     results: postsResponse.results

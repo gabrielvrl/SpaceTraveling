@@ -4,7 +4,6 @@ import { enableAutoPreviews } from '@prismicio/next';
 
 export interface PrismicConfig {
   req?: HttpRequestLike;
-  previewData: any;
 }
 
 export function getPrismicClient(config: PrismicConfig): prismic.Client {
