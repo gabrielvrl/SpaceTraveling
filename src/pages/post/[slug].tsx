@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import PrismicDOM from 'prismic-dom';
-import { Fragment } from 'react';
+import { Fragment, useMemo } from 'react';
 import Header from '../../components/Header';
 
 import { getPrismicClient } from '../../services/prismic';
@@ -31,6 +31,18 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps) {
+  
+   const readTime = useMemo(() => {
+    let fullText = '';
+    const readWordsPerMinute = 200;
+
+    return post.data.content.reduce(
+    (previousValue, currentValue) => {
+      fullText += currentValue.heading + PrismicDOM.RichText.asText(currentValue.body)
+      return Math.ceil(fullText.split(/\s/g).length / readWordsPerMinute);
+    }, 0)
+  }, [post]);
+
   return(
     <>
       <title>{post.data.title} | SpaceTraveling</title>
@@ -49,7 +61,7 @@ export default function Post({ post }: PostProps) {
               }
             </time>
             <h6> <img src="/images/user.svg" alt="user" /> {post.data.author}</h6>
-            <h6> <img src="/images/clock.svg" alt="user" /> 4 min</h6>
+            <h6> <img src="/images/clock.svg" alt="user" /> {readTime}min</h6>
           </div>
 
           {post.data.content.map(({ heading, body }) => (
