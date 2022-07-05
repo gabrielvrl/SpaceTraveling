@@ -54,7 +54,7 @@ export default function Post({ post }: PostProps) {
 
           {post.data.content.map(({ heading, body }) => (
             <Fragment key={heading}>
-              <h2>{heading}</h2>
+              <h2 className={styles.heading}>{heading}</h2>
 
               <div
                 // eslint-disable-next-line react/no-danger
