@@ -53,15 +53,14 @@ export default function Post({ post }: PostProps) {
       <main className={commonStyles.container}>
         <article className={styles.post}>
           <h1>{post.data.title}</h1>
-
           <div className={commonStyles.postInfo}>
             <time> <img src="/images/calendar.svg" alt="calendar" />
               {
-                format(new Date(post.first_publication_date), 'd MMM YYY')
+                format(new Date(post.first_publication_date), 'dd MMM YYY').toLowerCase()
               }
             </time>
             <h6> <img src="/images/user.svg" alt="user" /> {post.data.author}</h6>
-            <h6> <img src="/images/clock.svg" alt="user" /> {readTime}min</h6>
+            <h6> <img src="/images/clock.svg" alt="user" /> {readTime} min</h6>
           </div>
 
           {post.data.content.map(({ heading, body }) => (
