@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import PrismicDOM from 'prismic-dom';
 import { Fragment, useMemo } from 'react';
 import Header from '../../components/Header';
@@ -31,8 +32,9 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps) {
+  const router = useRouter();
   
-   const readTime = useMemo(() => {
+  const readTime = useMemo(() => {
     let fullText = '';
     const readWordsPerMinute = 200;
 
@@ -42,6 +44,11 @@ export default function Post({ post }: PostProps) {
       return Math.ceil(fullText.split(/\s/g).length / readWordsPerMinute);
     }, 0)
   }, [post]);
+
+
+  if (router.isFallback) {
+    return <p>Carregando...</p>;
+  }
 
   return(
     <>
@@ -96,7 +103,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: 'blocking'
+    fallback: true
   }
 };
 
